@@ -1,0 +1,15 @@
+name = "ring"
+version = "0.1.0"
+defaultTargets = ["test"]
+
+[[require]]
+name = "llmlean"
+git = "https://github.com/fbundle/llmlean.git"
+rev = "7ec2df26c124a9c4c4c602a7956bff6997e39602"
+
+[[lean_lib]]
+name = "Ring"
+
+[[lean_exe]]
+name = "test"
+root = "Main"
