@@ -7,6 +7,12 @@ name = "llmlean"
 git = "https://github.com/fbundle/llmlean.git"
 rev = "7ec2df26c124a9c4c4c602a7956bff6997e39602"
 
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "5e932f97dd25535344f80f9dd8da3aab83df0fe6"
+
+
 [[lean_lib]]
 name = "Ring"
 
