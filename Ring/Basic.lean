@@ -30,7 +30,8 @@ class Hom α β [Ring α] [Ring β] where
   map_one: map_func 1 = 1
 
 class Ideal α [Ring α] extends AddSubgroup α where
-  mul_mem (a b: α): a ∈ carrier → a * b ∈ carrier
+  left_mul_mem (a b: α): a ∈ carrier → a * b ∈ carrier
+  right_mul_mem (a b: α): b ∈ carrier → a * b ∈ carrier
 
 
 
