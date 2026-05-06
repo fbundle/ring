@@ -1,5 +1,6 @@
 import Mathlib.Data.Set.Defs
 import Mathlib.Algebra.Group.Defs
+import Mathlib.Algebra.Group.Subgroup.Defs
 -- import Mathlib.Algebra.Ring.Basic
 
 namespace Ring
@@ -28,6 +29,8 @@ class CommRingHom α β [CommRing α] [CommRing β] where
   map_zero: map_func 0 = 0
   map_one: map_func 1 = 1
 
+class Ideal α [CommRing α] extends AddSubgroup α where
+  mul_closed (a b: α): a ∈ carrier → b ∈ carrier → a * b ∈ carrier
 
 
 
