@@ -60,6 +60,6 @@ def unit [Ring α] (x: α): Prop := ∃ (y: α), x * y = 1
 
 
 
-end Ring
+end CommRing
 
 def hello := "world"
