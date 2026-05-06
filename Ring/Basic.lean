@@ -30,7 +30,7 @@ class CommRingHom α β [CommRing α] [CommRing β] where
   map_one: map_func 1 = 1
 
 class Ideal α [CommRing α] extends AddSubgroup α where
-  mul_closed (a b: α): a ∈ carrier → b ∈ carrier → a * b ∈ carrier
+  mul_closed (a b: α): a ∈ carrier → a * b ∈ carrier
 
 
 
