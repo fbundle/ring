@@ -111,8 +111,10 @@ def kernel [Ring α] [Ring β] (f: Hom α β): Ideal α := by
   }
 
 def quotient_ring [Ring α] [Ring β] (f: Hom α β) :=
-  haveI : AddGroup α := inferInstance
+  haveI : AddCommGroup α := inferInstance
   α ⧸ (kernel f).toAddSubgroup
+
+
 
 
 
