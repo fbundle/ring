@@ -16,7 +16,15 @@ class Ring (α : Type*) extends AddCommGroup α, Mul α, One α where
   mul_comm {a b : α} : a * b = b * a
   mul_assoc {a b c : α} : (a * b) * c = a * (b * c)
   left_distrib {a b c : α} : a * (b + c) = a * b + a * c
-  right_distrib {a b c : α} : (a + b) * c = a * c + b * c
+
+def Ring.right_distrib [Ring α] {a b c : α} : (a + b) * c = a * c + b * c := by
+  conv_lhs =>
+    rw [Ring.mul_comm]
+    rw [Ring.left_distrib]
+    rw [@Ring.mul_comm α _ c a]
+    rw [@Ring.mul_comm α _ c b]
+
+
 
 class Hom α β [Ring α] [Ring β] extends AddMonoidHom α β   where
   map_mul {a b: α}: toFun (a * b) = toFun a * toFun b
@@ -24,7 +32,11 @@ class Hom α β [Ring α] [Ring β] extends AddMonoidHom α β   where
 
 structure Ideal α [Ring α] extends AddSubgroup α where
   left_mul_mem {a b: α}: a ∈ carrier → a * b ∈ carrier
-  right_mul_mem {a b: α}: b ∈ carrier → a * b ∈ carrier
+
+def Ideal.right_mul_mem [Ring α] {i: Ideal α} {a b: α}: b ∈ i.carrier → a * b ∈ i.carrier := by
+  intro hb
+  rw [Ring.mul_comm]
+  exact (i.left_mul_mem hb)
 
 theorem zero_mul [Ring α]: ∀ (a: α), 0 * a = 0 := by
   intro a
@@ -54,23 +66,41 @@ def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β): Ideal α := by
     intro ha hb
 
     change a ∈ {x: α | f.toFun x = 0} at ha
-    simp only [Set.mem_setOf_eq] at ha
+    simp [Set.mem_setOf_eq] at ha
 
     change b ∈ {x: α | f.toFun x = 0} at hb
-    simp only [Set.mem_setOf_eq] at hb
+    simp [Set.mem_setOf_eq] at hb
 
     change (a + b) ∈ {x: α | f.toFun x = 0}
-    simp only [Set.mem_setOf_eq]
-    rw [AddMonoidHom.map_add']
+    simp [Set.mem_setOf_eq]
     rw [ha, hb]
     rw [AddMonoid.add_zero]
 
   let zero_mem': (0: α) ∈ k := by
     change 0 ∈ {x: α | f.toFun x = 0}
     simp only [Set.mem_setOf_eq]
-    rw [AddMonoidHom.map_zero f.toAddMonoidHom]
+    simp [AddMonoidHom.map_zero f.toAddMonoidHom]
 
-    sorry
+  let neg_mem' {a: α}: (a ∈ k) → (-a ∈ k) := by
+    intro ha
+    change a ∈ {x: α | f.toFun x = 0} at ha
+    change -a ∈ {x: α | f.toFun x = 0}
+    simp [Set.mem_setOf_eq] at ha
+    simp [Set.mem_setOf_eq]
+    exact ha
+
+
+  let left_mul_mem {a b: α}: a ∈ k → a * b ∈ k := by
+    intro ha
+    change a ∈ {x: α | f.toFun x = 0} at ha
+    change a * b ∈ {x: α | f.toFun x = 0}
+    simp [Set.mem_setOf_eq] at ha
+    simp [Set.mem_setOf_eq]
+
+    show f.toFun (a * b) = 0
+    rw [f.map_mul]
+    simp [ha]
+    rw [zero_mul]
 
 
 
@@ -79,9 +109,8 @@ def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β): Ideal α := by
     carrier   := k,
     add_mem'  := add_mem',
     zero_mem' := zero_mem',
-    neg_mem'  := sorry,
-    left_mul_mem := sorry,
-    right_mul_mem := sorry,
+    neg_mem'  := neg_mem',
+    left_mul_mem := left_mul_mem,
   }
 
 
