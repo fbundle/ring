@@ -40,14 +40,19 @@ def unit [Ring α] (x: α): Prop := ∃ (y: α), x * y = 1
 def kernel [Ring α] [Ring β] (f: Hom α β): AddSubgroup α :=
   AddMonoidHom.ker f.toAddMonoidHom
 
-def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β):
+theorem kernel_is_ideal [Ring α] [Ring β] (f: Hom α β):
   ∃ I: Ideal α, I.carrier = (kernel f).carrier := by
-    llmstep
+
+
     sorry
 
 
 
-
+theorem x: A ∧ B → B ∧ A := by
+  intro h
+  apply And.intro
+  exact h.2
+  exact h.1
 
 
 
