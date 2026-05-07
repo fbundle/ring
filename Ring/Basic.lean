@@ -1,6 +1,9 @@
+import LLMlean
+
 import Mathlib.Data.Set.Defs
 import Mathlib.Algebra.Group.Defs
 import Mathlib.Algebra.Group.Subgroup.Defs
+import Mathlib.Algebra.Group.Subgroup.Ker
 -- import Mathlib.Algebra.Ring.Basic
 
 namespace CommRing
@@ -33,6 +36,14 @@ class Ideal α [Ring α] extends AddSubgroup α where
 def zero_divisor [Ring α] (x: α): Prop := ∃ (y: α), x * y = 0
 
 def unit [Ring α] (x: α): Prop := ∃ (y: α), x * y = 1
+
+def kernel [Ring α] [Ring β] (f: Hom α β): AddSubgroup α :=
+  AddMonoidHom.ker f.toAddMonoidHom
+
+def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β):
+  ∃ I: Ideal α, I.carrier = (kernel f).carrier := by
+    llmstep
+    sorry
 
 
 
