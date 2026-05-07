@@ -4,11 +4,12 @@ import Mathlib.Data.Set.Defs
 import Mathlib.Algebra.Group.Defs
 import Mathlib.Algebra.Group.Subgroup.Defs
 import Mathlib.Algebra.Group.Subgroup.Ker
+import Mathlib.GroupTheory.QuotientGroup.Basic
 -- import Mathlib.Algebra.Ring.Basic
 
 import Mathlib.Data.Set.Operations
 
-namespace CommRing
+namespace CommRing1
 
 
 class Ring (α : Type*) extends AddCommGroup α, Mul α, One α where
@@ -58,10 +59,9 @@ def zero_divisor [Ring α] (x: α): Prop := ∃ (y: α), x * y = 0
 
 def unit [Ring α] (x: α): Prop := ∃ (y: α), x * y = 1
 
-def kernel [Ring α] [Ring β] (f: Hom α β): Set α := {x: α | f.toFun x = 0}
 
-def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β): Ideal α := by
-  let k: Set α := kernel f
+def kernel [Ring α] [Ring β] (f: Hom α β): Ideal α := by
+  let k: Set α := {x: α | f.toFun x = 0}
   let add_mem' {a b : α}: a ∈ k → b ∈ k → (a + b) ∈ k := by
     intro ha hb
 
@@ -102,9 +102,6 @@ def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β): Ideal α := by
     simp [ha]
     rw [zero_mul]
 
-
-
-
   exact {
     carrier   := k,
     add_mem'  := add_mem',
@@ -113,7 +110,13 @@ def kernel_is_ideal [Ring α] [Ring β] (f: Hom α β): Ideal α := by
     left_mul_mem := left_mul_mem,
   }
 
+def quotient_ring [Ring α] [Ring β] (f: Hom α β) :=
+  haveI : AddGroup α := inferInstance
+  α ⧸ (kernel f).toAddSubgroup
 
-end CommRing
+
+
+
+end CommRing1
 
 def hello := "world"
