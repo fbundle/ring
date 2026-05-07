@@ -22,18 +22,13 @@ instance [Ring α]: One α where
 instance [Ring α]: Mul α where
   mul := Ring.mul
 
-class Hom α β [Ring α] [Ring β] where
-  map_func: α → β
-  map_add (a b: α): map_func (a + b) = map_func a + map_func b
-  map_mul (a b: α): map_func (a * b) = map_func a * map_func b
-  map_zero: map_func 0 = 0
-  map_one: map_func 1 = 1
+class Hom α β [Ring α] [Ring β] extends AddMonoidHom α β   where
+  map_mul (a b: α): toFun (a * b) = toFun a * toFun b
+  map_one: toFun 1 = 1
 
 class Ideal α [Ring α] extends AddSubgroup α where
   left_mul_mem (a b: α): a ∈ carrier → a * b ∈ carrier
   right_mul_mem (a b: α): b ∈ carrier → a * b ∈ carrier
-
-
 
 def zero_divisor [Ring α] (x: α): Prop := ∃ (y: α), x * y = 0
 
