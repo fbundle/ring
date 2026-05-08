@@ -4,8 +4,10 @@ defaultTargets = ["test"]
 
 [[require]]
 name = "llmlean"
+# path = "../llmlean"
 git = "https://github.com/fbundle/llmlean.git"
 rev = "a76a665c58a59e813918f16b51993ccc81bc6ae2"
+
 
 [[require]]
 name = "mathlib"

@@ -132,7 +132,7 @@ def quotient_ring [Ring α] [Ring β] (f: Hom α β) :=
 
 
 theorem test: A ∧ B → B ∧ A := by
-  all_goals aesop
+  llmstep
 
 
 
