@@ -15,6 +15,8 @@ import LLMlean
 set_option llmlean.api "openai"
 set_option llmlean.model "bfs-prover-v2-7b"
 set_option llmlean.endpoint "http://127.0.0.1:1234/v1/chat/completions"
+set_option llmlean.prompt "tacticstate"
+set_option llmlean.responseFormat "tactic"
 
 namespace CommRing1
 
@@ -126,8 +128,7 @@ def quotient_ring [Ring α] [Ring β] (f: Hom α β) :=
 
 
 theorem test: A ∧ B → B ∧ A := by
-  intro h
-
+  intros h
   llmstep
 
 
