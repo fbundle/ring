@@ -1,13 +1,20 @@
-import LLMlean
+
 
 import Mathlib.Data.Set.Defs
 import Mathlib.Algebra.Group.Defs
 import Mathlib.Algebra.Group.Subgroup.Defs
 import Mathlib.Algebra.Group.Subgroup.Ker
 import Mathlib.GroupTheory.QuotientGroup.Basic
+import Mathlib.Data.Set.Operations
 -- import Mathlib.Algebra.Ring.Basic
 
-import Mathlib.Data.Set.Operations
+
+
+
+import LLMlean
+set_option llmlean.api "openai"
+set_option llmlean.model "bfs-prover-v2-7b"
+set_option llmlean.endpoint "http://127.0.0.1:1234/v1/chat/completions"
 
 namespace CommRing1
 
@@ -116,6 +123,12 @@ def quotient_ring [Ring α] [Ring β] (f: Hom α β) :=
 
 
 
+
+
+theorem test: A ∧ B → B ∧ A := by
+  intro h
+
+  llmstep
 
 
 
