@@ -18,7 +18,7 @@ set_option llmlean.endpoint "http://127.0.0.1:1234/v1/chat/completions"
 set_option llmlean.prompt "tacticstate"
 set_option llmlean.responseFormat "tactic"
 set_option llmlean.mode "iterative"
-set_option llmlean.maxIterations 20
+set_option llmlean.maxIterations 100
 
 
 
@@ -132,7 +132,9 @@ def quotient_ring [Ring α] [Ring β] (f: Hom α β) :=
 
 
 theorem test: A ∧ B → B ∧ A := by
-  llmstep
+  -- llmstep  -- search for a single step
+  -- llmqed   -- automatically search for the whole proof
+  by_cases hA : A <;> by_cases hB : B <;> simp [hA, hB]
 
 
 
