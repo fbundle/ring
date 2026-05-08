@@ -10,7 +10,7 @@ import Mathlib.Data.Set.Operations
 
 
 
-
+/-
 import LLMlean
 set_option llmlean.api "openai"
 set_option llmlean.model "bfs-prover-v2-7b-mlx-group_size64-mixed_4_6"
@@ -19,6 +19,7 @@ set_option llmlean.prompt "tacticstate"
 set_option llmlean.responseFormat "tactic"
 set_option llmlean.mode "iterative"
 set_option llmlean.maxIterations 100
+-/
 
 
 
